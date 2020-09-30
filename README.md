@@ -17,8 +17,6 @@ I intend to build upon this project with the following goals in mind:
 - eventually work in 2-pass for better results
 - detect multiple objects in a single picture while maintaining accuracy
 
-The code is available at https://github.com/DorskFR/FamilyPhotosWeb
-And the webapp is hosted at https://dorskfr.pythonanywhere.com/
-Youtube demo at https://www.youtube.com/watch?v=hSDUzDyC5UU
+The webapp is hosted at https://dorskfr.pythonanywhere.com/
 
-Thank you for your interest and for the CS50x course!
+Youtube demo at https://www.youtube.com/watch?v=hSDUzDyC5UU
