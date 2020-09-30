@@ -7,7 +7,7 @@ import FamilyScan
 UPLOAD_FOLDER = 'static/uploads/'
 
 application = app = Flask(__name__)
-app.secret_key = "secret key"
+app.secret_key = "more complicated secret to prevent something"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
