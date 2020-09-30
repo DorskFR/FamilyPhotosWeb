@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<title>Flask File Drag & Drop System</title>
+{% endblock %}
+
+{% block body %}
+
+{% if get_flashed_messages() %}
+<header>
+    <div class="alert alert-primary border text-center" role="alert">
+        {{ get_flashed_messages() | join(" ") }}
+    </div>
+</header>
+{% endif %}
+
+{% if filename %}
+<a href="/" class="title-link"><h1 id="title" style="margin: 0%;">Family Photos</h1></a>
+<div class="img-thumb">
+    {% if not maskname %}
+    <div class=""><img class="thumb" src="{{ url_for('display_image', filename=filename) }}"></div>
+    {% else %}
+    <div class="img-top"><img class="thumb" src="{{ url_for('display_image', filename=filename) }}"></div>
+    <div class="img-bot"><img class="thumb" src="{{ url_for('display_image', filename=maskname) }}"></div>
+    {% endif %}
+</div>
+{% else %}
+<a href="/" class="title-link"><h1 id="title" style="margin: 5%;">Family Photos</h1></a>
+{% endif %}
+
+<div id="content">
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" name="image" id="image">
+                <label for="image" class="custom-file-label">Select image...</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Upload</button>
+            {% if filename %}
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="submit" formaction="/filter/{{ filename }}/sobel" 
+                formmethod="POST" class="btn btn-secondary">Apply Sobel</button>
+                <button type="submit" formaction="/filter/{{ filename }}/hsv" 
+                formmethod="POST" class="btn btn-secondary">Apply Hsv</button>
+                <button type="submit" formaction="/filter/{{ filename }}/canny" 
+                formmethod="POST" class="btn btn-secondary">Apply Canny</button>
+            </div>
+            {% endif %}
+            {% if filename and filter %}
+            <button type="submit" formaction="/crop/{{ filename }}/{{ filter }}" 
+            formmethod="POST" class="btn btn-success">Crop</button>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+
+<script>
+    $('#image').on('change',function(){
+        //get the file name
+        var fileName = $(this).val();
+        var fileNameSplit = fileName.split("\\");
+        var fileNameFinal = fileNameSplit[fileNameSplit.length-1]
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileNameFinal);
+    })
+</script>
+
+
+{% endblock %}
